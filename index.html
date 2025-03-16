@@ -3,71 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>360° Obrót</title>
-    <style>
-        body { margin: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; background: black; }
-        img { position: absolute; max-width: 100vw; max-height: 100vh; display: none; transform-origin: center; }
-    </style>
+    <title>Minimax HBS S45 - 360° Widok</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.panzoom/3.2.2/jquery.panzoom.min.js"></script>
 </head>
 <body>
-    <script>
-        const imageCount = 72; // Liczba zdjęć
-        let currentIndex = 0;
-        let images = [];
-        let isDragging = false;
-        let startX = 0;
-        let scale = 1;  // Zmienna do przechowywania poziomu przybliżenia
-        let maxScale = 3;  // Maksymalne przybliżenie
-        let minScale = 0.5;  // Minimalne przybliżenie
-
-        for (let i = 0; i < imageCount; i++) {
-            const img = new Image();
-            img.src = `images/frame${i + 1}.jpg`; // Dostosuj ścieżkę do zdjęć
-            img.style.display = i === 0 ? 'block' : 'none';
-            document.body.appendChild(img);
-            images.push(img);
-        }
-
-        function showImage(index) {
-            images[currentIndex].style.display = 'none';
-            currentIndex = (index + imageCount) % imageCount;
-            images[currentIndex].style.display = 'block';
-        }
-
-        function applyZoom() {
-            images[currentIndex].style.transform = `scale(${scale})`;
-        }
-
-        document.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.clientX;
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            if (isDragging) {
-                const delta = e.clientX - startX;
-                if (Math.abs(delta) > 10) {
-                    showImage(currentIndex + (delta > 0 ? -1 : 1));
-                    startX = e.clientX;
-                }
-            }
-        });
-
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
-
-        // Dodanie funkcji zoomowania
-        document.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            if (e.deltaY < 0) {
-                scale = Math.min(scale * 1.1, maxScale);  // Powiększ
-            } else {
-                scale = Math.max(scale / 1.1, minScale);  // Pomniejsz
-            }
-            applyZoom();
-        });
-
-    </script>
+    <header>
+        <h1>Minimax HBS S45</h1>
+    </header>
+    <main>
+        <section class="product-view">
+            <div class="image-container">
+                <div id="360viewer" class="panzoom">
+                    <img id="frame" src="images/frame1.jpg" alt="Minimax HBS S45" />
+                </div>
+            </div>
+        </section>
+        <section class="gallery">
+            <div class="thumbs">
+                <img src="images/frame1.jpg" class="thumb" onclick="load360(1)" alt="Widok 1">
+                <img src="images/frame2.jpg" class="thumb" onclick="load360(2)" alt="Widok 2">
+                <img src="images/frame3.jpg" class="thumb" onclick="load360(3)" alt="Widok 3">
+            </div>
+            <div class="thumbs">
+                <img src="images/frame4.jpg" class="thumb" onclick="load360(4)" alt="Widok 4">
+                <img src="images/frame5.jpg" class="thumb" onclick="load360(5)" alt="Widok 5">
+                <img src="images/frame6.jpg" class="thumb" onclick="load360(6)" alt="Widok 6">
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html>
