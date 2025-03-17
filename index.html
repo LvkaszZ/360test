@@ -3,42 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimax HBS S45 - 360° Widok</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Demo 360° Produktów</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.panzoom/3.2.2/jquery.panzoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/spritespin@4.0.7/release/spritespin.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .viewer { width: 300px; height: 300px; border: 1px solid #ccc; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Minimax HBS S45</h1>
-    </header>
-    <main>
-        <section class="product-container">
-            <div class="image-container">
-                <div id="360viewer" class="panzoom">
-                    <img id="frame" src="images/frame1.jpg" alt="Minimax HBS S45" />
-                </div>
-            </div>
-            <div class="product-description">
-                <h2>Opis produktu</h2>
-                <p>Pilarka taśmowa Minimax HBS S45 – zapewnia dużą precyzję, idealna do profesjonalnych użytkowników.</p>
-                <p>Pilarka taśmowa Minimax HBS S45 to kompaktowa maszyna o dużych możliwościach. Posiada sporych rozmiarów stół roboczy (600 x 520 mm) oraz przykładnicę o wysokości 150 mm, która umożliwia stabilne i precyzyjne rozcinanie wysokich elementów. Dużą zaletę tej maszyny jest mocny 3 kW silnik. Pilarka posiada żeliwne koła napędowe oraz stabilny i sztywny korpus wykonany z blachy stalowej. Można stosować taśmy o szerokości od 6 do 25 mm. Chcesz dowiedzieć się więcej? Skontaktuj się z nami lub wypełnij formularz, a my skontaktujemy się z Tobą!</p>
-                <p><strong>Zobacz kartę katalogową i poznaj specyfikację techniczną oraz wyposażenie dodatkowe!</strong></p>
-            </div>
-        </section>
-        <section class="gallery">
-            <div class="thumbs">
-                <img src="images/frame1.jpg" class="thumb" onclick="load360(1)" alt="Widok 1">
-                <img src="images/frame2.jpg" class="thumb" onclick="load360(2)" alt="Widok 2">
-                <img src="images/frame3.jpg" class="thumb" onclick="load360(3)" alt="Widok 3">
-            </div>
-            <div class="thumbs">
-                <img src="images/frame4.jpg" class="thumb" onclick="load360(4)" alt="Widok 4">
-                <img src="images/frame5.jpg" class="thumb" onclick="load360(5)" alt="Widok 5">
-                <img src="images/frame6.jpg" class="thumb" onclick="load360(6)" alt="Widok 6">
-            </div>
-        </section>
-    </main>
-    <script src="script.js"></script>
+    <h1>Demo Zdjęć Produktowych 360°</h1>
+    <div class="container">
+        <div class="viewer" id="viewer1"></div>
+        <div class="viewer" id="viewer2"></div>
+        <div class="viewer" id="viewer3"></div>
+        <div class="viewer" id="viewer4"></div>
+        <div class="viewer" id="viewer5"></div>
+        <div class="viewer" id="viewer6"></div>
+    </div>
+    
+    <script>
+        function initViewer(id, imagePath, frameCount) {
+            $(id).spritespin({
+                source: Array.from({ length: frameCount }, (_, i) => `${imagePath}/frame${i + 1}.jpg`),
+                width: 300,
+                height: 300,
+                frameTime: 40,
+                animate: false,
+                sense: -1,
+                responsive: true,
+                enableZoom: true,
+                zoomFactor: 2
+            });
+        }
+
+        $(document).ready(function () {
+            initViewer("#viewer1", "images/product1", 72);
+            initViewer("#viewer2", "images/product2", 72);
+            initViewer("#viewer3", "images/product3", 72);
+            initViewer("#viewer4", "images/product4", 72);
+            initViewer("#viewer5", "images/product5", 72);
+            initViewer("#viewer6", "images/product6", 72);
+        });
+    </script>
 </body>
 </html>
